@@ -1,0 +1,4 @@
+bi_daily_task_job:
+  cron: "* * * * *"
+  class: "BiDailyTaskJob"
+  queue: default
