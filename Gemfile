@@ -33,6 +33,10 @@ gem 'mongoid', '~> 8.1', '>= 8.1.5'
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0', '>= 1.0.4'
 gem 'sidekiq-cron'
+
+# Nokogiri
+gem 'nokogiri'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
