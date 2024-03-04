@@ -3,5 +3,5 @@ class Crawler
   include Mongoid::Timestamps
   field :author, type: String
   field :text, type: String
-  field :tags, type: String
+  field :tag, type: String
 end
