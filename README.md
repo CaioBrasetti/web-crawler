@@ -49,10 +49,12 @@ cd web-crawler
 bundle install
 ```
 
-3. Configure o banco de dados no arquivo `config/database.yml`.
-
-4. Execute as migrações do banco de dados:
+3. Execute as migrações do banco de dados:
 
 ```bash
 rails db:migrate
 ```
+
+## Uso
+
+Após seguir os passos de instalação.....
