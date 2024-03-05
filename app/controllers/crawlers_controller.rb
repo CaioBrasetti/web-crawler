@@ -19,7 +19,6 @@ class CrawlersController < ApplicationController
       else
         render json: filtered_quotes, status: :ok
       end
-      # filtered_quotes.empty? ? render_json(error_message, :not_found) : render json: filtered_quotes, status: :ok
     else
       error_message = 'Por favor, forneça a tag desejada.'
 
