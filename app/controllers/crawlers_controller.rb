@@ -1,11 +1,13 @@
-class CrawlersController < ApplicationController
+class CrawlersController < AuthenticationController
   require 'open-uri'
   require 'nokogiri'
 
+  before_action :validate_token, only: [:scrape_quotes_with_tag]
+
   def scrape_quotes_with_tag
-    tag = params[:tag]
-    
-    if tag.present? # fazer um .dowcase na tag
+    tag = params[:tag].downcase
+
+    if tag.present?
       results_with_tag = Crawler.where(tag: tag).to_a
 
       if results_with_tag.present?
