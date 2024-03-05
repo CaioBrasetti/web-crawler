@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
-  get 'scrape_quotes', to: 'crawlers#scrape_quotes'
+  get 'scrape_quotes_with_tag', to: 'crawlers#scrape_quotes_with_tag'
 
   # Defines the root path route ("/")
   # root "posts#index"
@@ -12,7 +12,5 @@ Rails.application.routes.draw do
   require "sidekiq/web"
   require "sidekiq/cron/web"
 
-  # authenticate :user, ->(user) { user.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
-  # end
+  mount Sidekiq::Web => '/sidekiq'
 end

@@ -2,7 +2,9 @@ class CrawlersController < ApplicationController
   require 'open-uri'
   require 'nokogiri'
 
-  def scrape_quotes_with_tag(tag)
+  def scrape_quotes_with_tag
+    tag = params[:tag]
+    
     if tag.present? # fazer um .dowcase na tag
       results_with_tag = Crawler.where(tag: tag).to_a
 
