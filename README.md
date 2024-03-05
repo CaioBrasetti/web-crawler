@@ -1,24 +1,19 @@
-# README
+# Web Crawler de Frases - Ruby on Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Este projeto consiste em um web crawler em Ruby on Rails para buscar frases no site http://quotes.toscrape.com/. A aplicação disponibiliza os resultados via API, com destaque para as seguintes funcionalidades:
 
-Things you may want to cover:
+* ### Busca por Tag:
 
-* Ruby version
+  * Recebe uma tag como parâmetro e retorna frases categorizadas de acordo.
 
-* System dependencies
+* ### Armazenamento no MongoDB:
 
-* Configuration
+  * Salva as frases e tags associadas no MongoDB.
 
-* Database creation
+* ### Consulta de Cache Eficiente e job automatizado:
 
-* Database initialization
+  * Evita consultas repetidas; retorna dados persistidos e verifica a cada 12 horas o site de origem com as tags já armazenadas para atualizar novas citações que possam ter sido criadas com as mesmas.
 
-* How to run the test suite
+* ### Token de Acesso com Expiração:
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  * Implementação de geração de token de acesso que expira em 10 minutos para garantir segurança na API.
