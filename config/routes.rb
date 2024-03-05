@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get 'scrape_quotes_with_tag', to: 'crawlers#scrape_quotes_with_tag'
 
+  get '/create_token', to: 'authentication#create_token'
+
   # Defines the root path route ("/")
   # root "posts#index"
 
