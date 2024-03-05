@@ -15,7 +15,7 @@ Este projeto consiste em um web crawler em Ruby on Rails para buscar frases no s
 
 * ### Armazenamento no MongoDB:
 
-  * Salva as frases e tags associadas no MongoDB.
+  * Salva as frases e tag associadas no MongoDB.
 
 * ### Consulta de Cache Eficiente e job automatizado:
 
