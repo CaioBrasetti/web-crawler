@@ -5,7 +5,7 @@ class AuthenticationController < ApplicationController
   SECRET_KEY = 'avagaeminha'
 
   def create_token
-    payload = { exp: Time.now.to_i + 15}
+    payload = { exp: Time.now.to_i + 600}
     token = JWT.encode(payload, SECRET_KEY, 'HS256')
 
     render json: token, status: :created
