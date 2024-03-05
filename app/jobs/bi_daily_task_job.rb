@@ -1,9 +1,11 @@
 class BiDailyTaskJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    puts "Vou executar meu Job"
-    sleep 3
-    puts "Finalmente consegui!"
+  def perform
+    quotes = Crawler.all.pluck(:tag).to_a
+    
+    quotes.each do |quote_tag|
+      CrawlersController.new.search_tag_into_database(quote_tag)
+    end
   end
 end
