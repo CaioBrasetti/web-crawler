@@ -85,6 +85,7 @@ Encontrar a tag: ``` localhost:3000/scrape_quotes_with_tag?tag=SUA_TAG_AQUI ```
 Varios resultados podem ser obtidos dessas consultas. Seguem os mapeados:
 **Geração do token:**
 - ``` Status: 201, Resposta: Token gerado ```
+- Exemplo de resultado: ```eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDk2ODQxODR9.XCaFDtNhjeMadMLZyaxRGypfW69W1R1ndEAmUd-cTMY```
 
 **Busca por tag**
 - ```Status: 200, Resposta: Citações encontradas por aquela tag ```
@@ -92,4 +93,22 @@ Varios resultados podem ser obtidos dessas consultas. Seguem os mapeados:
 - ```Status: 404, Mensagem de erro: Por favor forneça um token```
 - ```Status: 404, Mensagem de erro: Nenhuma citação encontrada com a tag informada. Tente novamente com outra tag. ```
 - ```Status: 422, Mensagem de erro: Por favor, forneça a tag desejada. ```
-
+- Exemplo de resultado positivo: 
+```bash
+{
+    "quotes": [
+        {
+            "quote": "“There are only two ways to live your life. One is as though nothing is a miracle. The other is as though everything is a miracle.”",
+            "author": "Albert Einstein",
+            "author_about": "https://quotes.toscrape.com/author/Albert-Einstein",
+            "tags": [
+               "inspirational",
+                "life",
+                "live",
+                "miracle",
+                "miracles"
+            ]
+        }
+    ]
+}
+```
