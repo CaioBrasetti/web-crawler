@@ -11,9 +11,11 @@ class CrawlersController < AuthenticationController
       results_with_tag = Crawler.where(tag: tag).to_a
 
       if results_with_tag.present?
-        filtered_quotes = results_with_tag
+        filtered_quotes = format_result(results_with_tag)
       else
-        filtered_quotes = search_tag_into_database(tag)
+        results = search_tag_into_database(tag)
+
+        filtered_quotes = format_result(results)
       end
 
       error_message = "Nenhuma citação encontrada com a tag informada. Tente novamente com outra tag."
@@ -36,10 +38,10 @@ class CrawlersController < AuthenticationController
     filtered_quotes = []
 
     quotes.each do |quote|
-      quote[:tags].each do |t|
+      quote[:related_tags].each do |t|
         if t == tag
           filtered_quotes << quote
-          Crawler.find_or_create_by(author: quote[:author], text: quote[:text], tag: tag)
+          Crawler.find_or_create_by(quote: quote[:quote], author: quote[:author], author_about: quote[:author_about], tag: tag, related_tags: quote[:related_tags])
         end
       end
     end
@@ -54,10 +56,12 @@ class CrawlersController < AuthenticationController
     quotes = []
 
     doc.css('div.quote').each do |quote_element|
+      quote = quote_element.css('span.text').text
       author = quote_element.css('small.author').text
-      text = quote_element.css('span.text').text
-      tags = quote_element.css('div.tags a.tag').map(&:text)
-      quotes << { author: author, text: text, tags: tags }
+      author_about = quote_element.at('span a')['href']
+      related_tags = quote_element.css('div.tags a.tag').map(&:text)
+
+      quotes << { quote: quote, author: author, author_about: "https://quotes.toscrape.com#{author_about}", related_tags: related_tags }
     end
 
     quotes
@@ -68,5 +72,20 @@ class CrawlersController < AuthenticationController
 
   def render_json(error_message, status)
     render json: { error: error_message }, status: status
+  end
+
+  def format_result(quotes)
+    formated = quotes.map do |quote|
+      {
+        "quote" => quote[:quote],
+        "author" => quote[:author],
+        "author_about" => quote[:author_about],
+        "tags" => JSON.parse(quote[:related_tags].to_s)
+      }
+    end
+
+    filtered_quotes = { "quotes" => formated }.to_json
+
+    filtered_quotes
   end
 end
