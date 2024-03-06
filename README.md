@@ -24,7 +24,48 @@ Este projeto consiste em um web crawler em Ruby on Rails para buscar frases no s
 * ### Token de Acesso com Expiração:
 
   * Implementação de geração de token de acesso que expira em 10 minutos para garantir segurança na API.
- 
+
+## Solução adotada
+**Token**
+- Utilizei a gem JWT para fazer a criação de tokens;
+- Setei um timer para expirar a cada 10 minutos para maior segurança do projeto;
+- Exibo o token e o status de que ele foi criado corretamente.
+
+**CrawlersController**
+- Esta herda da controller que gerencia o token, para antes de fazer a busca pela tag, verificar se o token é valido.
+Aqui dividi a logica em 3 metodos, sendo eles:
+- ```scrape_quotes_with_tag```
+- Verifico se foi passada uma tag;
+- Caso sim:
+   - Verifico se já possuo citações daquela tag no banco de dados;
+      - Se existir, formato o resultado no experado e retorno ao usuario;
+   - Se não existir:
+      - chamo os metodos que explicarei abaixo;
+      - formato o resultado no experado e retorno ao usuario.
+- Caso não: exibo um status de erro e uma mensagem ao usuario.
+- OBS: Caso não exista uma citação com aquela tag exibo um status de erro e uma mensagem ao usuario.
+
+- ```scrape_quotes_in_website```
+- Inicio variaveis com valores que precisarei usar posteriormente;
+- Utilizo a gem Nokogiri para leitura do site;
+- Separo somente as informações que serão utilizadas no futuro;
+- Armazeno esses valores em um array de hashs;
+- Retorno esse array.
+
+- ```search_tag_into_database```
+- Recebo uma tag(enviada pelo usuario) que veio do metodo ```scrape_quotes_with_tag```;
+- Chamo o metodo ```scrape_quotes_in_website```;
+- A partir das informações obtidas no site, verifico de uma a uma se alguma possui a tag que foi informada;
+- Caso sim:
+   - Armazeno o resultado em um array de hashs;
+   - Utilizo um find or create by para somente criar se aquela citação se ainda não existir no banco de dados.
+- Caso não: Significa que não existe nenhuma citação com essa tag informada. Então o metodo que chama este irá tratar o erro.
+
+**CRON**
+- A cada 12 horas é chamado o job que irá verificar todas as tags inseridas pelos usuarios existentes no banco de dados;
+- Passo ao metodo ```search_tag_into_database``` essas tags para que o fluxo explicado acima aconteça.
+
+  
 ## Requisitos
 
 Certifique-se de ter as seguintes dependências instaladas:
