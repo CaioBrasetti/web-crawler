@@ -4,7 +4,7 @@ development:
     # Defines the default client. (required)
     default:
       # Mongoid can connect to a URI accepted by the driver:
-      uri: mongodb+srv://caiobrasetti:150691@cluster0.lkpffsl.mongodb.net/test?retryWrites=true&w=majority
+      uri: mongodb+srv://<%= ENV['MONGO_USER'] %>@cluster0.lkpffsl.mongodb.net/test?retryWrites=true&w=majority
 
       # Otherwise define the parameters separately.
       # This defines the name of the default database that Mongoid can connect to.

@@ -61,7 +61,7 @@ class CrawlersController < AuthenticationController
       author_about = quote_element.at('span a')['href']
       related_tags = quote_element.css('div.tags a.tag').map(&:text)
 
-      quotes << { quote: quote, author: author, author_about: "https://quotes.toscrape.com#{author_about}", related_tags: related_tags }
+      quotes << { quote: quote, author: author, author_about: "#{url}#{author_about}", related_tags: related_tags }
     end
 
     quotes

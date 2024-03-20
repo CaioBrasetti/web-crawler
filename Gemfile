@@ -37,6 +37,9 @@ gem 'sidekiq-cron'
 # Nokogiri
 gem 'nokogiri'
 
+# .env
+gem 'dotenv-rails'
+
 gem 'jwt'
 gem 'mongo'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
