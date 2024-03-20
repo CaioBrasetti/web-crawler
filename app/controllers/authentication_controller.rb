@@ -2,7 +2,7 @@ class AuthenticationController < ApplicationController
   require 'jwt'
   require 'mongo'
 
-  SECRET_KEY = 'avagaeminha'
+  SECRET_KEY = ENV['SECRET_KEY']
 
   def create_token
     payload = { exp: Time.now.to_i + 600}
